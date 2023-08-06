@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\StageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/boards')->group(function(){
+    Route::get('', [BoardController::class, 'index']);
+    Route::post('/create', [BoardController::class, 'create']);
+    Route::post('/update', [BoardController::class, 'update']);
+});
+
+Route::prefix('/stages')->group(function () {
+    Route::get('', [StageController::class, 'index']);
+    Route::post('/create', [StageController::class, 'create']);
+    Route::post('/update', [StageController::class, 'update']);
+});
+
+Route::prefix('/cards')->group(function () {
+    Route::get('', [CardController::class, 'index']);
+    Route::post('/create', [CardController::class, 'create']);
+    Route::post('/update', [CardController::class, 'update']);
 });
